@@ -1,9 +1,16 @@
 import React from 'react'
-
+import Home from './pages/Home'
+import {BrowserRouter as Router, Routes,Route} from 'react-router-dom'
+import ProductDetails from './pages/productDetails'
 const App = () => {
   return (
-    <div className='text-3xl text-red-500 flex justify-center items-center h-screen'>
-     Hello from App !!
+    <div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+    </Router>
     </div>
   )
 }
