@@ -3,7 +3,7 @@ import React from 'react';
 
 const SortAndFilter = ({ onSortChange, onFilterChange }) => {
     return (
-        <div className="flex justify-between p-1 bg-gray-100 rounded-lg shadow-md mt-16">
+        <div className="flex justify-between p-1 bg-gray-100 rounded-lg shadow-md mt-20">
             <select onChange={(e) => onSortChange(e.target.value)} className="border rounded-md p-2">
                 <option value="">Sort by</option>
                 <option value="priceAsc">Price: Low to High</option>

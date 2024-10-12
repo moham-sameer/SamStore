@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { addToCart,decToCart, removeFromCart } from '../redux/CartSlice';
+import Navbar from '../components/Navbar';
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -30,8 +31,12 @@ const Cart = () => {
             </div>
         );
     }
-
+    const handleClick = ()=>{
+      alert("We will add this feature later.")
+    }
     return (
+      <>
+        <Navbar/>
         <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-20">
             {/* Left: Cart Items */}
             <div className="lg:col-span-2 space-y-6">
@@ -91,11 +96,12 @@ const Cart = () => {
                     <span className="text-lg">Total Amount</span>
                     <span className="text-lg">₹{totalAmount.toFixed(2)}</span>
                 </div>
-                <button className="w-full bg-green-500 text-white py-3 text-lg rounded-lg shadow-md hover:bg-green-400">
+                <button onClick={handleClick} className="w-full bg-green-500 text-white py-3 text-lg rounded-lg shadow-md hover:bg-green-400">
                     Proceed to Checkout
                 </button>
             </div>
         </div>
+      </>
     );
 };
 
