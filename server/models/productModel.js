@@ -7,8 +7,8 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     discount: { type: Number, default: 0 },
     category: { type: String, required: true }, // e.g., Electronics
-    subcategory: { type: String, required: true }, // e.g., Smartphones
-    brand: { type: String, required: true },
+    subcategory: { type: String, required: false }, // e.g., Smartphones
+    brand: { type: String, required: false },
     stock: { type: Number, default: 0 },
     imageUrl: { type: [String], required: true }, // array of image URLs
     rating: { type: Number, default: 0 },
@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
     },
   }, { timestamps: true });
 
-  const Product = mongoose.model('Product', productSchema);
+  const Product = mongoose.model('Items', productSchema);
 
 module.exports = Product;
   

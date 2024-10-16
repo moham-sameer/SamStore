@@ -1,0 +1,16 @@
+{
+    "title": "Redmi note 13 Pro Max",
+    "description": "Latest smartphone with a 6.5-inch display, 128GB storage, and a triple-camera system.",
+    "price": 799.99,
+    "discount": "10%",
+    "category": "Electronics",
+    // "subcategory": "Smartphones",
+    // "brand": "TechBrand",
+    "stock": 50,
+    "imageUrl": [
+        "https://rukminim2.flixcart.com/image/850/1000/xif0q/mobile/0/g/w/note-12-5g-mzb0eiain-redmi-original-imagpgr9ngapjhxq.jpeg?q=90&crop=false",
+        "https://i02.appmifile.com/570_operator_sg/06/06/2023/f539d0b9258b85d91fb1164a6b14692f.png"
+    ],
+    "rating": 4.6,
+    "totalReviews": 1500
+}
