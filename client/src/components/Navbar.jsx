@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { FaShoppingCart, FaSearch, FaUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const totalQuantity = useSelector((state) => state.cart.totalQuantity);
     const items = useSelector((state) => state.items.data);
+    const user = useSelector((state) => state.auth.user);
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
     const navigate = useNavigate();
 
     const handleSearchChange = (e) => {
@@ -68,36 +70,43 @@ const Navbar = () => {
                     <Link to="/contact" className="text-white hover:text-yellow-300 transition duration-200">Contact Us</Link>
                 </div>
 
-                {/* Right: Cart Icon */}
-                <div className="relative">
-                    <Link to="/cart" className="flex items-center group">
-                        <FaShoppingCart className="text-white text-2xl group-hover:text-yellow-300 transition duration-200" />
-                        {totalQuantity > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-yellow-300 text-purple-600 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                                {totalQuantity}
-                            </span>
+                {/* Right: Cart Icon and Profile */}
+                <div className="flex items-center space-x-4">
+                    <div className="relative">
+                        <Link to="/cart" className="flex items-center group">
+                            <FaShoppingCart className="text-white text-2xl group-hover:text-yellow-300 transition duration-200" />
+                            {totalQuantity > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-yellow-300 text-purple-600 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                    {totalQuantity}
+                                </span>
+                            )}
+                        </Link>
+                    </div>
+                    <div className="relative">
+                        <button 
+                            onClick={() => setShowProfileMenu(!showProfileMenu)}
+                            className="text-white hover:text-yellow-300 transition duration-200"
+                        >
+                            <FaUser className="text-2xl" />
+                        </button>
+                        {showProfileMenu && (
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                                {user ? (
+                                    <>
+                                        <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-100">Profile</Link>
+                                        <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-100">Logout</Link>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-100">Login</Link>
+                                        <Link to="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-100">Sign Up</Link>
+                                    </>
+                                )}
+                            </div>
                         )}
-                    </Link>
+                    </div>
                 </div>
             </div>
-
-            {/* Custom scrollbar styles */}
-            <style jsx>{`
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: #f1f1f1;
-                    border-radius: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #888;
-                    border-radius: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: #555;
-                }
-            `}</style>
         </nav>
     );
 };
