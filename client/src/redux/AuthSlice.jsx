@@ -1,20 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 // Set the base URL for Axios requests
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5000', // Your backend URL
 });
 
-export const setUserFromToken = (token) => (dispatch) => {
-    try {
-      const decoded = jwt_decode(token);
-      dispatch(setUser(decoded)); // Assuming setUser updates the state with user info
-    } catch (error) {
-      console.error("Invalid token", error);
-      dispatch(logout()); // Log out if token is invalid
-    }
-  };
+
+  
 // Async thunk for signup
 export const signup = createAsyncThunk('auth/signup', async (userData, thunkAPI) => {
   try {
@@ -41,13 +34,21 @@ export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) =
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    token: localStorage.getItem('token') || null,
-    isAuthenticated: false,
-    loading: false,
-    user: null,
-    error: null,
-  },
+  token: localStorage.getItem('token') || null,
+  isAuthenticated: !!localStorage.getItem('token'),
+  loading: false,
+  user: null,  // Ensure user starts as null, not undefined
+  error: null,
+},
+
+  
   reducers: {
+    setUser: (state, action) => {
+        state.user = action.payload; // Set the user from the decoded token
+      },
+      setToken: (state, action) => {
+        state.token = action.payload; // Store the token in the state
+      },
     logout: (state) => {
       localStorage.removeItem('token');
       state.token = null;
@@ -80,8 +81,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.isAuthenticated = true;
-        state.user = action.payload.user;
-      })
+        
+        const decodedUser = jwtDecode(action.payload.token);
+        state.user = decodedUser.user;  // Make sure this part is correctly updating state.user
+        
+        localStorage.setItem('token', action.payload.token);
+      })     
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
@@ -90,6 +95,6 @@ const authSlice = createSlice({
 });
 
 // Export the logout action
-export const { setUser, logout,clearError } = authSlice.actions;
+export const { setUser,setToken, logout,clearError } = authSlice.actions;
 
 export default authSlice.reducer;

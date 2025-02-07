@@ -13,7 +13,7 @@ const SortAndFilter = ({ onSortChange, onFilterChange }) => {
             <select onChange={(e) => onFilterChange(e.target.value)} className="border rounded-md p-2">
                 <option value="">Filter by Category</option>
                 <option value="electronics">Electronics</option>
-                <option value="jewelery">Jewelery</option>
+                <option value="jewelery">Jewellery</option>
                 <option value="men's clothing">Men's Clothing</option>
                 <option value="women's clothing">Women's Clothing</option>
             </select>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, clearError } from '../redux/AuthSlice';
 import { useNavigate, Link } from 'react-router-dom';
@@ -10,9 +10,9 @@ const Login = () => {
     password: '',
   });
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const {user,loading,error} = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
+   
   const { email, password } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,10 +23,17 @@ const Login = () => {
     try {
       await dispatch(login({ email, password })).unwrap();
       navigate('/');
+      
     } catch (err) {
       console.error(err);
     }
   };
+  useEffect(() => {
+    if (user) {
+      console.log("user from login: " + user);
+      navigate('/'); // or navigate('/cart') based on your app's logic
+    }
+  }, [user, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Home from './pages/Home'
 import {BrowserRouter as Router, Routes,Route} from 'react-router-dom'
 import ProductDetails from './pages/productDetails'
@@ -11,19 +11,36 @@ import Login from './components/Login'
 import Profile from './pages/Profile'
 import ProtectedRoute from './components/ProtectedRoute'
 import RedirectIfLoggedIn from './components/RedirectIfLoggedIn'
-import { useDispatch } from 'react-redux'
-import { setUserFromToken } from './redux/AuthSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUserFromToken } from './redux/middleware/jwt'
 const App = () => {
   const dispatch = useDispatch();
-
+  const authState = useSelector((state)=>state.auth)
+    console.log('authState: ', authState)
+    console.log('user: ', authState.user)
+    console.log('error: ', authState.error)
+    console.log('loading: ', authState.loading)
+  
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      dispatch(setUserFromToken(token)); // Dispatch the action to set user
+      console.log("Token found in localStorage: ", token); // Debugging line
+      dispatch(setUserFromToken(token)); // Dispatch the action to set user from token
+    } else {
+      console.log("No token found in localStorage"); // Debugging line
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log("User from App.jsx:", authState.user); // Log user after login
+    if (authState.user) {
+      console.log("Yeheee yahooo yipeee!")
+    }
+  }, [authState.user]);
+  
   return (
-    <div>
+    <div> 
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
