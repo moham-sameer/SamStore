@@ -29,7 +29,7 @@ const Navbar = () => {
     const handleSuggestionClick = (suggestion) => {
         setSearchQuery(suggestion.title);
         setSuggestions([]);
-        navigate(`/product/${suggestion.id}`);
+        navigate(`/product/${suggestion._id}`);
     };
 
     return (
