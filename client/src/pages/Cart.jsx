@@ -17,7 +17,7 @@ const Cart = () => {
       if(item.quantity > 1){
         dispatch(decToCart(item));
       }else{
-        dispatch(removeFromCart(item.id));
+        dispatch(removeFromCart(item._id));
       }
     };
 
@@ -43,10 +43,10 @@ const Cart = () => {
                 <h1 className="text-3xl font-bold">Your Cart</h1>
 
                 {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between bg-white shadow-md rounded-lg p-4">
+                    <div key={item._id} className="flex items-center justify-between bg-white shadow-md rounded-lg p-4">
                         <div className="flex items-center space-x-4">
                             <img 
-                                src={item.image} 
+                                src={item.imageUrl} 
                                 alt={item.title} 
                                 className="w-24 h-24 object-contain" 
                             />
@@ -76,7 +76,7 @@ const Cart = () => {
 
                         {/* Remove Item Button */}
                         <button
-                            onClick={() => dispatch(removeFromCart(item.id))}
+                            onClick={() => dispatch(removeFromCart(item._id))}
                             className="text-red-500 hover:text-red-700"
                         >
                             <FaTrash className="text-xl" />

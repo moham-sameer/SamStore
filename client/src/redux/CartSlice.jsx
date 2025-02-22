@@ -32,7 +32,7 @@ const CartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
-            const existingItem = state.cartItems.find(item => item.id === action.payload.id);
+            const existingItem = state.cartItems.find(item => item._id === action.payload._id);
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -42,17 +42,17 @@ const CartSlice = createSlice({
             saveCartToLocalStorage(state.cartItems);  // Save to localStorage
         },
         decToCart: (state, action) => {
-            const existingItem = state.cartItems.find(item => item.id === action.payload.id);
+            const existingItem = state.cartItems.find(item => item._id === action.payload._id);
             if (existingItem && existingItem.quantity > 1) {
                 existingItem.quantity -= 1;
             } else {
-                state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id);
+                state.cartItems = state.cartItems.filter(item => item._id !== action.payload._id);
             }
             state.totalQuantity = calculateTotalQuantity(state.cartItems);
             saveCartToLocalStorage(state.cartItems);  // Save to localStorage
         },
         removeFromCart: (state, action) => {
-            const itemIndex = state.cartItems.findIndex(item => item.id === action.payload);
+            const itemIndex = state.cartItems.findIndex(item => item._id === action.payload);
             if (itemIndex >= 0) {
                 state.cartItems.splice(itemIndex, 1);
             }

@@ -27,16 +27,17 @@ const Home = () => {
 
     // Apply sorting
     let sortedItems = [...filteredItems];
+    // pagination feature
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = sortedItems.slice(indexOfFirstPost, indexOfLastPost);
     if (sortOrder) {
         if (sortOrder === 'priceAsc') {
-            sortedItems.sort((a, b) => a.price - b.price);
+            currentPosts.sort((a, b) => a.price - b.price);
         } else if (sortOrder === 'priceDesc') {
-            sortedItems.sort((a, b) => b.price - a.price);
+            currentPosts.sort((a, b) => b.price - a.price);
         } else if (sortOrder === 'rating') {
-            sortedItems.sort((a, b) => b.rating.rate - a.rating.rate);
+            currentPosts.sort((a, b) => b.rating.rate - a.rating.rate);
         }
     }
 
@@ -53,15 +54,15 @@ const Home = () => {
             {!loading && items.length === 0 && <p className='text-[4rem] text-gray-500 font-semibold flex justify-center items-center h-screen m-auto'>No items found</p>}
             
             {!loading && sortedItems.length > 0 && currentPosts.map((item) => (
-              <Link to={`/product/${item.id}`} key={item.id}>
+              <Link to={`/product/${item._id}`} key={item._id}>
 
-                <div key={item.id} className=" hover:bg-slate-50 rounded-lg p-4 hover:shadow-md">
-                    <img className="w-full h-[12rem] object-cover rounded" src={item.image} alt={item.title} />
+                <div key={item._id} className=" hover:bg-slate-50 rounded-lg p-4 hover:shadow-md">
+                    <img className="w-full h-[12rem] object-cover rounded" src={item.imageUrl} alt={item.title} />
                     <p className="mt-2 font-semibold">{item.title}</p>
                     <p className="text-sm text-gray-600">{item.category}</p>
                     <div className="flex justify-between items-center mt-4">
                         <p className="font-bold text-lg">Price: ₹ {item.price}</p>
-                       <span className='font-bold'>Rating: </span> <p className="px-1 py-1 bg-green-700 text-white border-gray-50 border  rounded">{item.rating.rate}★</p>
+                       <span className='font-bold'>Rating: </span> <p className="px-1 py-1 bg-green-700 text-white border-gray-50 border  rounded">{item.rating}★</p>
                     </div>
                 </div>
               </Link>

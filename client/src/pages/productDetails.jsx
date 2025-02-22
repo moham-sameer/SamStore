@@ -35,7 +35,7 @@ const productDetails = () => {
                 <div className="bg-white shadow-md rounded-lg overflow-hidden">
                     <img 
                         className="w-full h-[20rem] object-contain sm:h-[25rem] lg:h-[30rem]" 
-                        src={product.image} 
+                        src={product.imageUrl} 
                         alt={product.title} 
                     />
                 </div>
@@ -50,7 +50,7 @@ const productDetails = () => {
 
                     <div>
                         <p className="text-3xl font-bold text-green-700">Price: ₹{product.price}</p>
-                        <p className="text-lg font-medium mt-2">Rating: {product.rating.rate} ★</p>
+                        <p className="text-lg font-medium mt-2">Rating: {product.rating} ★</p>
                     </div>
 
                     <button 

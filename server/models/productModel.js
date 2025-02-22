@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
     discount: { type: Number, default: 0 },
     category: { type: String, required: true }, // e.g., Electronics
     subcategory: { type: String, required: false }, // e.g., Smartphones
-    brand: { type: String, required: false },
+    brand: { type: String},
     stock: { type: Number, default: 0 },
     imageUrl: { type: [String], required: true }, // array of image URLs
     rating: { type: Number, default: 0 },

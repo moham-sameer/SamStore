@@ -3,13 +3,13 @@ import axios from 'axios';
 
 // Async thunk to fetch all items
 export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
-    const response = await axios.get('https://fakestoreapi.com/products');
+    const response = await axios.get('http://localhost:5000/products');
     return response.data;
 });
-
+// https://fakestoreapi.com/products
 // Async thunk to fetch a single item by ID
 export const fetchItemById = createAsyncThunk('items/fetchItemById', async (id) => {
-    const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+    const response = await axios.get(`http://localhost:5000/products/${id}`);
     return response.data;
 });
 
